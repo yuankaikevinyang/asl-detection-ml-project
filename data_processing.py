@@ -27,7 +27,7 @@ for dir_ in os.listdir(data_directory): #iterating through each directory in the
 
 
 
-    for img_path in  os.listdir(os.path.join(data_directory, dir_))[:1]: #iterating through each image in the subdirectories
+    for img_path in  os.listdir(os.path.join(data_directory, dir_))[500:600]: #iterating through each image in the subdirectories
 
         data_aux=[]
 
