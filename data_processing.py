@@ -67,7 +67,7 @@ for dir_ in os.listdir(data_directory): #iterating through each directory in the
             labels.append(dir_) #from the most outer for-loop (Should have 26)
 
 
-f = open('data4.pickle', 'wb') #write and binary
+f = open('pickled_data/data4.pickle', 'wb') #write and binary
 
 pickle.dump({'data': data, 'labels': labels}, f) # a dictionary
 

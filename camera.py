@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module='google.protobuf.symbol_database')
 
 
-model_dict = pickle.load(open('./model4.p', 'rb')) #our data is in a dictionary
+model_dict = pickle.load(open('pickled_model/model4.p', 'rb')) #our data is in a dictionary
 model = model_dict['model']
 
 cap = cv2.VideoCapture(0)
