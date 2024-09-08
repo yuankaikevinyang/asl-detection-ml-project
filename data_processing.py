@@ -31,19 +31,30 @@ for dir_ in os.listdir(data_directory): #iterating through each directory in the
 
         data_aux=[]
 
+        x_ = []
+        y_ = []
+
         img = cv2.imread(os.path.join(data_directory, dir_, img_path))
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        results = hands.process(img_rgb) #function comes from mediapipe
+        results = hands.process(img_rgb)
         if results.multi_hand_landmarks:
-            for hand_landmarks in results.multi_hand_landmarks: #extracting landmarks
+            for hand_landmarks in results.multi_hand_landmarks:
                 for i in range(len(hand_landmarks.landmark)):
-                    #print(hand_landmarks.landmark[i]) #gives x, y, and z coords
-
                     x = hand_landmarks.landmark[i].x
                     y = hand_landmarks.landmark[i].y
-                    data_aux.append(x)
-                    data_aux.append(y)
+
+                    x_.append(x)
+                    y_.append(y)
+
+                for i in range(len(hand_landmarks.landmark)):
+                    x = hand_landmarks.landmark[i].x
+                    y = hand_landmarks.landmark[i].y
+                    data_aux.append(x - min(x_))
+                    data_aux.append(y - min(y_))
+
+            data.append(data_aux)
+            labels.append(dir_)
                 #Drawing on the Image
                 # mp_drawing.draw_landmarks(
                 #     img_rgb,
@@ -56,7 +67,7 @@ for dir_ in os.listdir(data_directory): #iterating through each directory in the
             labels.append(dir_) #from the most outer for-loop (Should have 26)
 
 
-f = open('data3.pickle', 'wb') #write and binary
+f = open('data4.pickle', 'wb') #write and binary
 
 pickle.dump({'data': data, 'labels': labels}, f) # a dictionary
 
