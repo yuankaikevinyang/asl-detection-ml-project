@@ -9,10 +9,17 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module='google.protobuf.symbol_database')
 
 
-model_dict = pickle.load(open('./model.p', 'rb')) #our data is in a dictionary
+model_dict = pickle.load(open('./model3.p', 'rb')) #our data is in a dictionary
 model = model_dict['model']
 
 cap = cv2.VideoCapture(0)
+
+labels_dict = {
+    0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G',
+    7: 'H', 8: 'I', 9: 'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N',
+    14: 'O', 15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T', 20: 'U',
+    21: 'V', 22: 'W', 23: 'X', 24: 'Y', 25: 'Z'
+}
 
 #From MediaPipe
 mp_hands = mp.solutions.hands
@@ -31,7 +38,7 @@ while True:
     ret, frame = cap.read()
 
     H, W, _ = frame.shape
-    
+
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = hands.process(frame_rgb)
 
@@ -68,6 +75,7 @@ while True:
         y2 = int(max(y_) * H) - 10
         
         prediction = model.predict([np.asarray(data_aux)])
+        # predicted_character = labels_dict[int(prediction[0])]
         predicted_character = prediction[0]
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 4)

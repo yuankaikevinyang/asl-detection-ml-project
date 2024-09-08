@@ -16,7 +16,7 @@ hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
 
 
 #Our main directory
-data_directory = './asl_alphabet_train'
+data_directory = 'C:/Users/keviny168/Desktop/asl_alphabet_train'
 
 
 data = [] #for the coords of the hand landmarks
@@ -27,7 +27,7 @@ for dir_ in os.listdir(data_directory): #iterating through each directory in the
 
 
 
-    for img_path in  os.listdir(os.path.join(data_directory, dir_))[500:600]: #iterating through each image in the subdirectories
+    for img_path in  os.listdir(os.path.join(data_directory, dir_))[:1000]: #iterating through each image in the subdirectories
 
         data_aux=[]
 
@@ -53,10 +53,10 @@ for dir_ in os.listdir(data_directory): #iterating through each directory in the
                 #     mp_drawing_styles.get_default_hand_connections_style()
                 # )
             data.append(data_aux)
-            labels.append(dir_) #from the most outer for-loop (Should have 29)
+            labels.append(dir_) #from the most outer for-loop (Should have 26)
 
 
-f = open('data.pickle', 'wb') #write and binary
+f = open('data3.pickle', 'wb') #write and binary
 
 pickle.dump({'data': data, 'labels': labels}, f) # a dictionary
 
